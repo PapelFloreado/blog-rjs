@@ -5,16 +5,16 @@ import Posteos from '../Posteos/Posteos.jsx'
 
 const PosteosContainer = () => {
 
-    const [ posteos, setPosteos ] = useState([]) 
+    const [ recetas, setRecetas ] = useState([]) 
 
     useEffect(()=>{
         const getColData = async ()=>{
 
             try {
-                const data = collection(db, "Posteos")
+                const data = collection(db, "recetas")
                 const col = await getDocs(data)
                 const res = col.docs.map((doc) =>doc={id:doc.id, ...doc.data()})
-                setPosteos(res)
+                setRecetas(res)
             } catch (error) {
                 console.log(error)
             }
@@ -31,7 +31,7 @@ const PosteosContainer = () => {
         <>
             <div className='flex'>
                 <div className='flex'>
-                    <Posteos posteos={posteos}/>  
+                    <Posteos recetas={recetas}/>  
                 </div>
             </div>
         </>

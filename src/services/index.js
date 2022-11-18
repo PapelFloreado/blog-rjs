@@ -2,7 +2,9 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore"
 import { getAuth } from "firebase/auth";
-import { getStorage } from "firebase/storage";
+import { getStorage, uploadBytes, ref, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -22,5 +24,13 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
 export const auth = getAuth(app);
 export const storage = getStorage(app);
+
+export async function uploadFile(file){
+  const storage = getStorage()
+  const recetasRef = ref(storage, `ImagenesRecetas/${v4()}`)
+  await uploadBytes(recetasRef, file)
+  const url = await getDownloadURL(recetasRef)
+  return url
+}
 
 export default db
