@@ -1,20 +1,21 @@
 import { addDoc, collection } from 'firebase/firestore'
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import React, { useState } from 'react'
 import Alerta from '../components/Alerta/Alerta'
 import Spinner from '../components/Spinner/Spinner';
 import { UserAuth } from '../context/AuthContext'
 import db from "../services/index.js"
-import { v4 } from 'uuid';
 import { uploadFile } from '../services/index.js';
+import Check from '../components/Check/Check';
 
 const FormularioPosteo = () => {
 
     const { user } = UserAuth()
 
-
-
     const { displayName } = user
+
+    const [ spinner, setSpinner] = useState(false)
+
+    const [ check, setCheck ] = useState(false)
 
     const [file, setFile] = useState(null)
 
@@ -35,6 +36,7 @@ const FormularioPosteo = () => {
     const handleUpload = async (e)=>{
         e.preventDefault()
         try {
+          setSpinner(true)
           const result = await uploadFile(file)
           setFormulario({
             
@@ -42,27 +44,33 @@ const FormularioPosteo = () => {
             description:description.value,
             ingredientes:ingredientes.value,
             procedimientos:procedimientos.value,
-            tiempo:procedimientos.value,
+            tiempo:tiempo.value,
             tags:tags.value,
             img:result,
             displayName            
             })
+          setSpinner(false)
+          setCheck(true)
         } catch (error) {
           console.log(error)
         }
     }
 
     const handleSubmit = async (formulario)=>{ 
-        
 
       const {plato, description, procedimientos, ingredientes,tiempo, img, tags} = formulario
+
+      if(img === null){
+        return setAlerta({msg:"Recuerda subir una imagen"})
+      }
+
       if(plato === "" || description === "" || procedimientos === "" || tiempo === "" || img=== null  || ingredientes === "" || tags === ""){
-        return setAlerta({msg: "Todos los campos son obligatorios"}) 
+        return setAlerta({msg: "Todos los campos del formulario son obligatorios"}) 
       }
 
       try {
           const col = collection(db,"recetas")
-          await addDoc(col, formulario).then(alert("agregado"))
+          await addDoc(col, formulario).then(alert("Receta agregada"))
           } catch (error) {
             console.log(error)
           }
@@ -115,8 +123,13 @@ const FormularioPosteo = () => {
                   </div> 
                   <div className='mt-10 mb-10'>
                       <label className='uppercase text-md' htmlFor="description">Agrega una imagen de tu Receta</label>
-                      <input  onChange={e=>setFile(e.target.files[0])} type="file" name="" id="file" />
-                      <button type='button' className=' bg-fuchsia-700 rounded-xl text-white uppercase mx-3 py-3 px-3 ' onClick={handleUpload}>subir</button>
+                      <div className='flex items-center '>
+                      <input className=''  onChange={e=>setFile(e.target.files[0])} type="file" name="" id="file" />
+                          <button type='button' className=' items-center w-1/3 bg-fuchsia-700 rounded-xl text-white uppercase mx-3 py-3 px-3 ' onClick={handleUpload}>subir</button>
+                          <div className=' items-center'>
+                              {spinner === true ? <span><Spinner/></span> : check === true && spinner === false ? <span><Check/></span>  : <div></div>}
+                          </div>
+                      </div>
                   </div>
                   <div className='mt-10 mb-10'>
                       <label className='uppercase text-md' htmlFor="tiempo">Tags</label>

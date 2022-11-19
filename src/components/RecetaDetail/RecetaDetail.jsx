@@ -1,8 +1,12 @@
 import React from 'react'
 
-const RecetaDetail = () => {
+const RecetaDetail = ({item}) => {
+
+  const { plato } = item
   return (
-    <div>RecetaDetail</div>
+      <>
+          <h1 className='text-center text-4xl'>{plato}</h1>  
+      </>
   )
 }
 

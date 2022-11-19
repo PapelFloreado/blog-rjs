@@ -3,7 +3,7 @@ import './App.css'
 import { AuthContextProvider } from './context/AuthContext'
 import Home from './pages/Home'
 import HomeLayout from './layout/HomeLayout'
-import RecetaDetail from './components/RecetaDetail/RecetaDetail'
+import RecetaDetailContainer from './components/RecetaDetailContainer/RecetaDetailContainer'
 import Sigin from './pages/Sigin'
 import NavBar from './components/NavBar/NavBar'
 import Protected from "./pages/Protected"
@@ -18,7 +18,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<HomeLayout/>}>
                         <Route index element={<Home/>}/>
-                        <Route path="/receta-detail/:id" element={<RecetaDetail/>}/>
+                        <Route path="/receta-detail/:id" element={<RecetaDetailContainer/>}/>
                         <Route path="/sigin" element={<Sigin/>}/>
                         <Route path="/postear" element={<Protected><FormularioPosteo/></Protected>}/>
                     </Route>
