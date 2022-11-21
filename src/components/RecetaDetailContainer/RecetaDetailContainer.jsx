@@ -4,7 +4,7 @@ import RecetaDetail from "../RecetaDetail/RecetaDetail"
 import { collection, getDocs } from 'firebase/firestore'
 import db from '../../services'
 
-const RecetaListContainer = () => {
+const RecetaDetailContainer = () => {
     const {id} = useParams()
 
     const [ item, setItem ] = useState({})
@@ -39,4 +39,4 @@ const RecetaListContainer = () => {
       )
     }
 
-export default RecetaListContainer
+export default RecetaDetailContainer
