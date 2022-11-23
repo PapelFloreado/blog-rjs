@@ -7,6 +7,8 @@ const RecetaDetail = ({item}) => {
   
   const { plato, ingredientes, img, description, procedimientos, tiempo, displayName} = item
 
+  console.log(procedimientos)
+
   return (
      
       <>
@@ -55,8 +57,15 @@ const RecetaDetail = ({item}) => {
                   <Clock/>
                 <h3 className='text-2xl'>{tiempo}</h3>
                 </div>
-                <h2 className='px-10 text-2xl font-bold my-10'>Procedimientos</h2>
-                <p className='px-10 text-xl'>{procedimientos}</p>
+                <h2 className=' text-3xl font-bold my-10'>Procedimientos</h2>
+                {
+                  procedimientos.map((procedimientos, index)=>(
+                    <div className='my-10' key={index}>
+                    <h2 className='font-bold text-2xl text-fuchsia-800'>Paso {index +1}</h2>
+                    <p  className='text-xl'>{procedimientos.procedimientos}</p>
+                    </div>
+                  ))
+                }
                 <p className='text-center text-lg'>Realizado por <span className='uppercase font-bold'>{displayName}</span></p>
 
             </div>

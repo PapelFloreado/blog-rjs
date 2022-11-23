@@ -19,6 +19,10 @@ const FormularioPosteo = () => {
 
     const [file, setFile] = useState(null)
 
+    const [ categoria, setCategoria ] = useState({})
+
+    const [ procedimientos, setProcedimientos ] = useState([{}])
+
     const [ alerta, setAlerta ] = useState({})
 
     const [ingredientes, setIngredientes] = useState([{nombre:"",cantidad:"",medida:""}])
@@ -27,20 +31,46 @@ const FormularioPosteo = () => {
       
           plato:"",
           description:"",
+          categoria,
           ingredientes,
-          procedimientos:"",
+          procedimientos,
           tiempo:"",
           tags:"",
           img:null,
           displayName
         }])
-        
+      
     const handleServiceChange = (e, index) => {
       const { name, value } = e.target;
       const list = [...ingredientes];
       list[index][name] = value;
       setIngredientes(list);
     };
+
+    const handleProcedimientos = (e, index) => {
+      const { name, value } = e.target;
+      const list = [...procedimientos];
+      list[index][name] = value;
+      setProcedimientos(list);
+    };
+
+    const handleAddProcedimiento = ()=>{
+      setProcedimientos([...procedimientos,{}])
+      setFormulario([{
+      
+        plato:"",
+        description:"",
+        categoria,
+        ingredientes,
+        procedimientos,
+        tiempo:"",
+        tags:"",
+        img:null,
+        displayName
+      }])
+    }
+
+
     const handleAddIngredient = ()=>{
       
       setIngredientes([...ingredientes, {nombre: "",cantidad: "",medida: ""}])
@@ -48,8 +78,9 @@ const FormularioPosteo = () => {
       
         plato:"",
         description:"",
+        categoria,
         ingredientes,
-        procedimientos:"",
+        procedimientos,
         tiempo:"",
         tags:"",
         img:null,
@@ -69,8 +100,9 @@ const FormularioPosteo = () => {
             
             plato:plato.value,
             description:description.value,
+            categoria,
             ingredientes,
-            procedimientos:procedimientos.value,
+            procedimientos,
             tiempo:tiempo.value,
             tags:tags.value,
             img:result,
@@ -109,7 +141,7 @@ const FormularioPosteo = () => {
 
       return (
         <>
-          <h1 className='text-center uppercase font-bold text-3xl'>Hola! <span className=' text-fuchsia-700 '>{user?.displayName}</span></h1>
+          <h1 className='text-center uppercase font-bold text-3xl mt-20'>Hola! <span className=' text-fuchsia-700 '>{user?.displayName}</span></h1>
           <div className='flex containter mx-auto justify-center pt-10'>
               <form   className='bg-stone-100 m-5 p-10 rounded-xl shadow-2xl shadow-slate-600' action="">
                   <h2 className='text-xl uppercase text-fuchsia-800 font-bold'>Agrega una nueva Receta</h2>
@@ -126,7 +158,22 @@ const FormularioPosteo = () => {
                           ...formulario,
                             [e.target.name] : e.target.value
                       })} name="description" id="description" placeholder='Describe tu receta' />  
-                  </div>   
+                  </div>
+                  <div className='mt-10'>
+                    <label className='uppercase mr-16' htmlFor="categoria">Tipo de receta</label>
+                    <select className='p-3 border rounded-xl' onChange={e=>setCategoria({...categoria,
+                    [e.target.name] : e.target.value})} name="categoria" id="categoria">
+                      <option value="">Elige un tipo de receta</option>
+                      <option value="postre">postre</option>
+                      <option value="pescado">pescado</option>
+                      <option value="desayunos">desayunos</option>
+                      <option value="carnes">carnes</option>
+                      <option value="legumbres">legumbres</option>
+                      <option value="pastas">pastas</option>
+                      <option value="vegetariano">vegetariano</option>
+                    </select>
+
+                  </div>
                   <div className='mt-10'>
                     <label className='uppercase text-md w-full' htmlFor="ingredientes">Ingredientes</label>
                       {
@@ -154,14 +201,24 @@ const FormularioPosteo = () => {
                       }
        
                     </div>
-              
-                  <div className='mt-10'>
+                    <div className='mt-10'>
                       <label className='uppercase text-md' htmlFor="procedimientos">Procedimientos de tu receta</label>
-                      <textarea className='w-full p-3 rounded-xl mt-5 border' type="text"  onChange={e=>setFormulario({
-                          ...formulario,
-                            [e.target.name] : e.target.value
-                      })} name="procedimientos" id="procedimientos" placeholder='Escribe paso a paso tu receta' />  
-                  </div> 
+
+                        {
+
+                          procedimientos.map((paso, index)=>(
+                            <div className='my-3' key={index}>
+                            <h2>Paso {index +1}</h2>
+                            <textarea className='w-full p-3 rounded-xl mt-5 border' type="text"  onChange={e=>handleProcedimientos(e, index)} value={paso.procedimientos} name="procedimientos" id="procedimientos" placeholder='Escribe paso a paso tu receta' />  
+                      
+                          <button onClick={handleAddProcedimiento} className='px-3 text-white rounded-xl py-2 w-full bg-fuchsia-700' type='button'>Agregar paso</button>
+                         </div> 
+                          ))
+
+
+                        }
+
+                    </div>
                   <div className='mt-10'>
                       <label className='uppercase text-md' htmlFor="tiempo">Tiempo de cocción</label>
                       <input className='w-full p-3 rounded-xl mt-5 border' type="text"  onChange={e=>setFormulario({

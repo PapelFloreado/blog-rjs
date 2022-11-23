@@ -9,6 +9,8 @@ import NavBar from './components/NavBar/NavBar'
 import Protected from "./pages/Protected"
 import FormularioPosteo from './pages/FormularioPosteo'
 import Footer from './components/Footer/Footer'
+import CategoriaListContainer from './components/CategoriaListContainer/CategoriaListContainer'
+import CategoriaContainer from './components/CategoriaContainer/CategoriaContainer'
 
 function App() {
   
@@ -20,6 +22,8 @@ function App() {
                     <Route path="/" element={<HomeLayout/>}>
                         <Route index element={<Home/>}/>
                         <Route path="/receta-detail/:id" element={<RecetaDetailContainer/>}/>
+                        <Route path="/categoria" element={<CategoriaListContainer/>}/>
+                        <Route path="/categoria/:categoria" element={<CategoriaContainer/>}/>
                         <Route path="/sigin" element={<Sigin/>}/>
                         <Route path="/postear" element={<Protected><FormularioPosteo/></Protected>}/>
                     </Route>

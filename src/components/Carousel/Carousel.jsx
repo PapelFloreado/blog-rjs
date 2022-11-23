@@ -26,7 +26,7 @@ const Carousel = () => {
     <>
         <div className='max-w-[1240px] container mx-auto px-4 py-16  flex justify-center items-center '>
             <button onClick={handleSlidePrev}>
-                <LeftArrow className="absolute top-[50%] text-3xl text-white cursor-pointer right-8"/>
+                <LeftArrow className=" top-[50%] text-3xl text-white cursor-pointer right-8"/>
             </button>
             {
                 imgCarousel.map((item, index)=>(
