@@ -122,7 +122,7 @@ const FormularioPosteo = () => {
                   </div>  
                   <div className='mt-10'>
                       <label className='uppercase text-md' htmlFor="description">Descripción</label>
-                      <input className='w-full p-3 rounded-xl mt-5 border' type="text"  onChange={e=>setFormulario({
+                      <input className='w-full p-3 rounded-xl mt-5 border' type="text" maxLength="140"  onChange={e=>setFormulario({
                           ...formulario,
                             [e.target.name] : e.target.value
                       })} name="description" id="description" placeholder='Describe tu receta' />  

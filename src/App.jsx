@@ -8,6 +8,7 @@ import Sigin from './pages/Sigin'
 import NavBar from './components/NavBar/NavBar'
 import Protected from "./pages/Protected"
 import FormularioPosteo from './pages/FormularioPosteo'
+import Footer from './components/Footer/Footer'
 
 function App() {
   
@@ -23,6 +24,7 @@ function App() {
                         <Route path="/postear" element={<Protected><FormularioPosteo/></Protected>}/>
                     </Route>
                 </Routes>
+                <Footer/>
             </AuthContextProvider>
         </BrowserRouter>
   )
