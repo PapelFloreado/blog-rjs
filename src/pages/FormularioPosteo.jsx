@@ -6,6 +6,7 @@ import { UserAuth } from '../context/AuthContext'
 import db from "../services/index.js"
 import { uploadFile } from '../services/index.js';
 import Check from '../components/Check/Check';
+import { useNavigate } from 'react-router-dom';
 
 const FormularioPosteo = () => {
 
@@ -13,13 +14,15 @@ const FormularioPosteo = () => {
 
     const { displayName } = user
 
+    const navigate = useNavigate()
+
     const [ spinner, setSpinner] = useState(false)
 
     const [ check, setCheck ] = useState(false)
 
     const [file, setFile] = useState(null)
 
-    const [ categoria, setCategoria ] = useState({})
+   /*  const [ categoria, setCategoria ] = useState() */
 
     const [ procedimientos, setProcedimientos ] = useState([{}])
 
@@ -31,13 +34,16 @@ const FormularioPosteo = () => {
       
           plato:"",
           description:"",
-          categoria,
+          categoria:"",
           ingredientes,
           procedimientos,
           tiempo:"",
           tags:"",
           img:null,
-          displayName
+          displayName,
+          puntaje: 1
+        
+          
         }])
       
     const handleServiceChange = (e, index) => {
@@ -60,13 +66,14 @@ const FormularioPosteo = () => {
       
         plato:"",
         description:"",
-        categoria,
+        categoria:"",
         ingredientes,
         procedimientos,
         tiempo:"",
         tags:"",
         img:null,
-        displayName
+        displayName,
+        puntaje: 1
       }])
     }
 
@@ -78,13 +85,14 @@ const FormularioPosteo = () => {
       
         plato:"",
         description:"",
-        categoria,
+        categoria:"",
         ingredientes,
         procedimientos,
         tiempo:"",
         tags:"",
         img:null,
-        displayName
+        displayName,
+        puntaje: 1
       }])
     }
 
@@ -100,13 +108,15 @@ const FormularioPosteo = () => {
             
             plato:plato.value,
             description:description.value,
-            categoria,
+            categoria:categoria.value,
             ingredientes,
             procedimientos,
             tiempo:tiempo.value,
             tags:tags.value,
             img:result,
-            displayName            
+            displayName,
+            puntaje: 1   
+               
             })
           setSpinner(false)
           setCheck(true)
@@ -115,21 +125,24 @@ const FormularioPosteo = () => {
         }
     }
 
-    const handleSubmit = async (formulario)=>{ 
+    const handleSubmit = async (formulario)=>{
 
-      const {plato, description, procedimientos, ingredientes,tiempo, img, tags} = formulario
+      const {plato, categoria, description, procedimientos, ingredientes,tiempo, img, tags} = formulario
 
-      if(img === null){
-        return setAlerta({msg:"Recuerda subir una imagen"})
-      }
-
-      if(plato === "" || description === "" || procedimientos === "" || tiempo === "" || img=== null  || ingredientes === "" || tags === ""){
+      
+      if([plato,categoria,description,procedimientos,ingredientes,tiempo,tags].includes("") || plato,categoria,description,procedimientos,ingredientes,tiempo,tags === undefined){
         return setAlerta({msg: "Todos los campos del formulario son obligatorios"}) 
       }
-
+      if(img === null || img === undefined){
+        return setAlerta({msg:"Recuerda subir una imagen"})
+      }
+      
       try {
           const col = collection(db,"recetas")
-          await addDoc(col, formulario).then(alert("Receta agregada"))
+          await addDoc(col, formulario).then(alert("¡Se ha agregado correctamente tu Receta!"))
+          
+          navigate("/")
+          
           } catch (error) {
             console.log(error)
           }
@@ -161,8 +174,10 @@ const FormularioPosteo = () => {
                   </div>
                   <div className='mt-10'>
                     <label className='uppercase mr-16' htmlFor="categoria">Tipo de receta</label>
-                    <select className='p-3 border rounded-xl' onChange={e=>setCategoria({...categoria,
-                    [e.target.name] : e.target.value})} name="categoria" id="categoria">
+                    <select onChange={e=>setFormulario({
+                      ...formulario,
+                      [e.target.name]:e.target.value
+                    })} className='p-3 border rounded-xl' name="categoria" id="categoria">
                       <option value="">Elige un tipo de receta</option>
                       <option value="postre">postre</option>
                       <option value="pescado">pescado</option>

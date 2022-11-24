@@ -1,13 +1,52 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Spinner from '../Spinner/Spinner'
 import Clock from '../Clock/Clock'
+import Heart from '../Heart/Heart'
+import db from '../../services'
+import { updateDoc, doc } from 'firebase/firestore'
+import redHeart from "../../assets/img/like.svg"
+
 
 
 const RecetaDetail = ({item}) => {
   
-  const { plato, ingredientes, img, description, procedimientos, tiempo, displayName} = item
+  const { plato, ingredientes, img, description, procedimientos, tiempo, displayName, puntaje, id} = item
 
-  console.log(procedimientos)
+  const [like, setLike] = useState()
+  const [heart, setHeart] = useState(false)
+  
+
+  useEffect(() => {
+    const addLike = ()=>{
+      let like = puntaje
+      setLike(like)
+
+    }
+    
+    addLike()
+    
+    return () => {
+      
+    }
+  }, [puntaje])
+  
+
+  const handleLike = async (id)=>{
+    setHeart(true)
+    if(setHeart === true){
+      alert("Ya le diste like a esta receta!")
+    }
+    try {
+      const like = puntaje + 1
+      const suma = doc(db,"recetas", id)
+      await updateDoc(suma,{puntaje: like})
+      setLike(puntaje +1)
+      
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
      
@@ -66,6 +105,16 @@ const RecetaDetail = ({item}) => {
                     </div>
                   ))
                 }
+                <div className='flex justify-center text-center my-16'>
+                {
+                  heart === true ? (<p className='text-xl mx-auto'>likes<span><img className="w-10 h-10" src={redHeart} alt="heart" /></span>{like}</p>) : (<button onClick={()=>handleLike(id)}>
+                  <p className='text-xl mx-auto'>likes<span><Heart/></span>
+                  {like}
+                  </p>
+                </button>)              
+                }
+                </div>
+                
                 <p className='text-center text-lg'>Realizado por <span className='uppercase font-bold'>{displayName}</span></p>
 
             </div>

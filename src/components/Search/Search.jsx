@@ -38,11 +38,8 @@ const Search = () => {
         
         try {
         
-            const q = query(collection(db, "recetas"), where("tags", "==", buscar));
-            const querySnapshot = await getDocs(q);
-            console.log(querySnapshot)
-            console.log(q)
-           
+            const q = query(collection(db, "recetas"), where("plato", "==", buscar));
+            const querySnapshot = await getDocs(q); 
             querySnapshot.forEach((doc) => {
                 // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());

@@ -19,7 +19,6 @@ const CategoriaContainer = () => {
             const res = col.docs.map((doc) =>doc={id:doc.id, ...doc.data()})
             const res2 = categoria ? res.filter(el=> el.categoria === categoria) : res
             setItems(res2)
-            console.log(res2)
             
           } catch (error) {
             console.log(error)
@@ -31,6 +30,7 @@ const CategoriaContainer = () => {
           
         }
       }, [categoria])
+      
 
 
   return (
