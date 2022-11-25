@@ -12,6 +12,7 @@ import Footer from './components/Footer/Footer'
 import CategoriaListContainer from './components/CategoriaListContainer/CategoriaListContainer'
 import CategoriaContainer from './components/CategoriaContainer/CategoriaContainer'
 
+
 function App() {
   
   return (
@@ -24,6 +25,7 @@ function App() {
                         <Route path="/receta-detail/:id" element={<RecetaDetailContainer/>}/>
                         <Route path="/categoria" element={<CategoriaListContainer/>}/>
                         <Route path="/categoria/:categoria" element={<CategoriaContainer/>}/>
+                        <Route path="/categoria/:categoria/receta-detail/:id" element={<RecetaDetailContainer/>}/>
                         <Route path="/sigin" element={<Sigin/>}/>
                         <Route path="/postear" element={<Protected><FormularioPosteo/></Protected>}/>
                     </Route>
