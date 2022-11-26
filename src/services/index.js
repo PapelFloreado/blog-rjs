@@ -20,7 +20,6 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_APP_ID
 };
 
-console.log(import.meta.env.VITE_API_KEY, "auth", import.meta.env.VITE_AUTH_DOMAIN, import.meta.env.VITE_PROJECT_ID, import.meta.env.VITE_STORAGE_BUCKET,import.meta.env.VITE_MESSAGING_SENDER_ID,import.meta.env.VITE_APP_ID)
 
 // Initialize Firebase
 
