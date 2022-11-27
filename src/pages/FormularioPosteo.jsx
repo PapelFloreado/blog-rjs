@@ -90,7 +90,7 @@ const FormularioPosteo = () => {
         procedimientos,
         tiempo:"",
         tags:"",
-        img:null,
+        img,
         displayName,
         puntaje: 1
       }])
@@ -129,10 +129,11 @@ const FormularioPosteo = () => {
 
       const {plato, categoria, description, procedimientos, ingredientes,tiempo, img, tags} = formulario
 
-      
-      if([plato,categoria,description,procedimientos,ingredientes,tiempo,tags].includes("") || plato,categoria,description,procedimientos,ingredientes,tiempo,tags === undefined){
+      debugger
+      if( plato,categoria,description,procedimientos,ingredientes,tiempo,tags === undefined || plato,categoria,description,procedimientos,ingredientes,tiempo,tags === "" ){
         return setAlerta({msg: "Todos los campos del formulario son obligatorios"}) 
       }
+      
       if(img === null || img === undefined){
         return setAlerta({msg:"Recuerda subir una imagen"})
       }
@@ -154,10 +155,10 @@ const FormularioPosteo = () => {
 
       return (
         <>
-          <h1 className='text-center uppercase font-bold text-3xl mt-20'>Hola! <span className=' text-fuchsia-700 '>{user?.displayName}</span></h1>
-          <div className='flex containter mx-auto justify-center pt-10'>
-              <form   className='bg-stone-100 m-5 p-10 rounded-xl shadow-2xl shadow-slate-600' action="">
-                  <h2 className='text-xl uppercase text-fuchsia-800 font-bold'>Agrega una nueva Receta</h2>
+          <h1 className='text-center uppercase font-bold text-xl lg:text-3xl mt-20'>Hola! <span className=' text-fuchsia-700 '>{user?.displayName}</span></h1>
+          <div className='flex-col  lg:mx-64 containter mx-auto justify-center pt-10'>
+              <form   className='bg-stone-100 lg:m-5 p-4 lg:p-10 rounded-xl shadow-2xl shadow-slate-600' action="">
+                  <h2 className='lg:text-xl text-lg uppercase text-fuchsia-800 font-bold'>Agrega una nueva Receta</h2>
                   <div className='mt-10'>
                       <label className='uppercase text-md' htmlFor="plato">Nombre de tu Receta</label>
                       <input className='w-full p-3 rounded-xl mt-5 border' type="text" onChange={e=>setFormulario({
@@ -195,8 +196,8 @@ const FormularioPosteo = () => {
 
                         ingredientes.map((ingre, index)=>(
                           <div className='mt-5' key={index} >
-                              <input className="rounded-xl border p-3"  type="text" name="nombre" id="nombre" value={ingre.nombre} onChange={(e) => handleServiceChange(e, index)}></input>
-                              <input className="rounded-xl border p-3"  type="number" name="cantidad" id="cantidad" value={ingre.cantidad} onChange={(e) => handleServiceChange(e, index)}></input>
+                              <input className="rounded-xl border p-3" placeholder='Ingrediente'  type="text" name="nombre" id="nombre" value={ingre.nombre} onChange={(e) => handleServiceChange(e, index)}></input>
+                              <input className="rounded-xl border p-3" placeholder='Cantidad' type="number" name="cantidad" id="cantidad" value={ingre.cantidad} onChange={(e) => handleServiceChange(e, index)}></input>
                               <select className='p-3 border rounded-xl' onChange={(e) => handleServiceChange(e, index)} value={ingre.medida} name='medida' id='medida'>
                                   <option value="">Elige una medida</option>
                                   <option value="ml">ml</option>
