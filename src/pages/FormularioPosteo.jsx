@@ -243,9 +243,9 @@ const FormularioPosteo = () => {
                       })} name="tiempo" id="tiempo" placeholder='Agrega cuanto tiempo necesitas para esta receta' />  
                   </div> 
                   <div className='mt-10 mb-10'>
-                      <label className='uppercase text-md' htmlFor="description">Agrega una imagen de tu Receta</label>
+                      <label className='uppercase text-md' htmlFor="img">Agrega una imagen de tu Receta</label>
                       <div className='flex items-center '>
-                      <input className=''  onChange={e=>setFile(e.target.files[0])} type="file" name="" id="file" />
+                      <input className=''  onChange={e=>setFile(e.target.files[0])} accept="img/jpg" type="file" name="img" id="file" />
                           <button type='button' className=' items-center w-1/3 bg-fuchsia-700 rounded-xl text-white uppercase mx-3 py-3 px-3 ' onClick={handleUpload}>subir</button>
                           <div className=' items-center'>
                               {spinner === true ? <span><Spinner/></span> : check === true && spinner === false ? <span><Check/></span>  : <div></div>}

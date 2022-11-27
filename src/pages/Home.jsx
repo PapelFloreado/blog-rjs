@@ -1,6 +1,6 @@
 import React from 'react'
-import Carousel from '../components/Carousel/Carousel'
 import PosteosContainer from '../components/PosteosContainer/PosteosContainer'
+
 
 
 
@@ -8,13 +8,20 @@ const Home = () => {
 
     return (
         <>
-            <h1 className='container text-center mt-10 sm:mt-10 md:mt-14 lg:mt-16 sm:text-6xl md:text-6xl  mx-auto text-fuchsia-700 uppercase font-bold lg:text-8xl'>Bienvenido a <span className='text-black'>Food</span></h1>
-            <h2 className='text-center uppercase font-bold mt-10 sm:text-2xl md:text-3xl lg:text-4xl'>Tu plataforma de Recetas</h2>
-            <Carousel className="lg:w-full sm:w-1/2"></Carousel> 
+            <div className='grid grid-flow-row-dense grid-cols-2 bg-hero-home rounded-2xl  h-screen'>
+                <div className=' grid bg-opacity-70 bg-stone-100'>
+                    <div className='grid place-items-end'>
+                        <h1 className='text-center  container text-4xl  mx-auto text-fuchsia-700 uppercase font-bold lg:text-8xl'>Bienvenido a <span className='text-black'>Food</span></h1>
+                    </div>
+                    <div className='grid place-items-start'>
+                        <h2 className='text-center mx-auto uppercase font-bold text-2xl lg:text-4xl'>Tu plataforma de Recetas</h2>
+                    </div>
+                </div>
+            </div>
             {/* <Search></Search> */}
-            <h1 className='text-center sm:text-2xl lg:text-4xl mt-14 uppercase font-bold text-fuchsia-700'>Top 10 <span className='text-black'> Recetas </span></h1>
-            <div className='pt-10 flex container text-center mx-auto justify-between '>
-                <PosteosContainer className="w-full"></PosteosContainer>
+            <h1 className='text-center text-4xl xl:text-6xl mt-20 uppercase font-bold text-fuchsia-700'>Top 10 <span className='text-black'> Recetas </span></h1>
+            <div className=' lg:flex lg:flex-wrap'>
+                <PosteosContainer></PosteosContainer>
             </div>
         </>
         

@@ -39,11 +39,10 @@ const PosteosContainer = () => {
             {
 
                 recetas.length === 0 ? (<Spinner></Spinner>) : 
-                (<div className='flex'>
-                    <div className='flex'>
+                (
+                   
                         <Posteos recetas={recetas}/>  
-                    </div>
-                </div>)
+                )
                                                                 
 
             }
