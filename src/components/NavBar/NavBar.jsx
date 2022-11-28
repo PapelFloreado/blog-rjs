@@ -26,23 +26,23 @@ const NavBar = () => {
     return (
         <>
             <div className='w-full shadow-xl'>
-                <nav className="flex container justify-between items-center  h-40 max-w-[1240px] mx-auto px-4  text-fuchsia-700 bg-white">
+                <nav className="flex container justify-between items-center h-40 max-w-[1240px] mx-auto px-4  text-fuchsia-700 bg-white">
                         <Link to="/">
                             <img className='mb-5' src={food} alt="logo" width={40} />
                         </Link>
-                    <ul className=' hidden font-bold text-white uppercase text-xl basis-1/2 md:flex md:items-center justify-end items-center'>
+                    <ul className='hidden font-bold text-white uppercase text-xl basis-1/2 md:flex md:items-center justify-end items-center'>
                         {
                             user?.displayName ? 
                             (<>
-                                <Link to="/" className='py-4 px-4  rounded-full text-fuchsia-700 text-2xl hover:text-fuchsia-900 mx-4  transition-colors duration-300'>Home</Link>
+                                <Link to="/" className='py-4 px-4 border-b-orange-400 border-solid  rounded-full text-fuchsia-700 text-2xl hover:text-fuchsia-900 mx-4  transition-colors duration-300'>Home</Link>
                                 <Link to="/postear" className='text-fuchsia-700 text-2xl py-4 px-4 mx-4 rounded-full hover:text-fuchsia-900  transition-colors duration-300'>Postear</Link><Link to="/categoria
                                 " className='text-fuchsia-700 py-4 px-4 text-2xl  rounded-full hover:text-fuchsia-900 mx-4  transition-colors duration-300'>
                                     Categorias
                                 </Link>
-                                <button type="button" className=' text-2xl text-fuchsia-700 py-4 px-4 mx-4 rounded-full hover:text-fuchsia-900  transition-colors duration-300 uppercase' onClick={handleLogOut}>Cerrar Sesión</button></>) 
+                                <button type="button" className=' border-black text-2xl text-fuchsia-700 py-4 px-4 mx-4 rounded-full hover:text-fuchsia-900  transition-colors duration-300 uppercase' onClick={handleLogOut}>Cerrar Sesión</button></>) 
                             : (
                             <>  
-                                <Link to="/" className=' py-4 px-4 text-fuchsia-700 text-2xl rounded-full hover:text-fuchsia-900 mx-4  transition-colors duration-300'>Home</Link>
+                                <Link to="/" className='py-4 px-4 text-fuchsia-700 text-2xl rounded-full hover:text-fuchsia-900 mx-4  transition-colors duration-300'>Home</Link>
                                 <Link to="/categoria" className='text-fuchsia-700 py-4 px-4 text-2xl  rounded-full  hover:text-fuchsia-900 hover:border-b-fuchsia-700 mx-4  transition-colors duration-300'>
                                 Categorias
                                 </Link>

@@ -3,17 +3,22 @@ import Spinner from '../Spinner/Spinner'
 import Clock from '../Clock/Clock'
 import Heart from '../Heart/Heart'
 import db from '../../services'
-import { updateDoc, doc } from 'firebase/firestore'
+import { updateDoc, doc, getDoc } from 'firebase/firestore'
 import redHeart from "../../assets/img/like.svg"
+import MensajeInput from '../MensajeInput/MensajeInput'
+import Mensajes from '../Mensajes/Mensajes'
+import MensajeContainer from '../MensajeContainer/MensajeContainer'
 
 
 
 const RecetaDetail = ({item}) => {
   
-  const { plato, ingredientes, img, description, procedimientos, tiempo, displayName, puntaje, id} = item
+  const { plato, ingredientes, img, description, procedimientos, tiempo, displayName, puntaje, id, mensaje} = item
 
+  console.log(item)
   const [like, setLike] = useState()
   const [heart, setHeart] = useState(false)
+
   
 
   useEffect(() => {
@@ -22,7 +27,7 @@ const RecetaDetail = ({item}) => {
       setLike(like)
 
     }
-    
+
     addLike()
     
     return () => {
@@ -48,6 +53,7 @@ const RecetaDetail = ({item}) => {
     }
   }
 
+ 
   return (
      
       <>
@@ -96,7 +102,7 @@ const RecetaDetail = ({item}) => {
                   <Clock/>
                 <h3 className='text-2xl'>{tiempo}</h3>
                 </div>
-                <h2 className=' text-3xl font-bold my-10'>Procedimientos</h2>
+                <h2 className='uppercase text-3xl font-bold my-10'>Procedimientos</h2>
                 {
                   procedimientos.map((procedimientos, index)=>(
                     <div className='my-10' key={index}>
@@ -105,6 +111,11 @@ const RecetaDetail = ({item}) => {
                     </div>
                   ))
                 }
+                {
+                  mensaje === "" ? (<p>Todavia no hay mensajes</p>) : (<MensajeContainer mensaje={mensaje}></MensajeContainer>)
+                
+                }
+                <MensajeInput></MensajeInput>
                 <div className='flex justify-center text-center my-16'>
                 {
                   heart === true ? (<p className='text-xl mx-auto'>likes<span><img className="w-10 h-10" src={redHeart} alt="heart" /></span>{like}</p>) : (<button onClick={()=>handleLike(id)}>
@@ -115,7 +126,7 @@ const RecetaDetail = ({item}) => {
                 }
                 </div>
                 
-                <p className='text-center text-lg'>Realizado por <span className='uppercase font-bold'>{displayName}</span></p>
+                <p className='text-center text-lg'>Receta realizada por <span className='uppercase font-bold'>{displayName}</span></p>
 
             </div>
             </div>

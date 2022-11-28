@@ -19,7 +19,7 @@ const Home = () => {
                 </div>
             </div>
             {/* <Search></Search> */}
-            <h1 className='text-center text-4xl xl:text-6xl mt-20 uppercase font-bold text-fuchsia-700'>Top 10 <span className='text-black'> Recetas </span></h1>
+            <h1 className=' xl:border-black text-center text-4xl xl:text-6xl mt-20 uppercase font-bold text-fuchsia-700'>Top 10 <span className='text-black'> Recetas </span></h1>
             <div className=' lg:flex lg:flex-wrap'>
                 <PosteosContainer></PosteosContainer>
             </div>

@@ -46,7 +46,6 @@ const CategoriaContainer = () => {
         recetas.length === 0 ? (<Spinner></Spinner>) : 
            (
             <div className=' lg:flex lg:flex-wrap'>
-
               <Posteos recetas={recetas}/>  
             </div>
          
