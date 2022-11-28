@@ -40,19 +40,16 @@ const CategoriaContainer = () => {
 
   return (
     <>
+        <h2 className='uppercase text-fuchsia-700 font-bold text-6xl mt-16 text-center'>Aqui están las recetas disponibles</h2>
       {
 
         recetas.length === 0 ? (<Spinner></Spinner>) : 
            (
-           <div className='container mx-auto flex-col justify-center w-ful'>
+            <div className=' lg:flex lg:flex-wrap'>
 
-           <h2 className='uppercase text-fuchsia-700 font-bold text-6xl mt-16 text-center'>Aqui están las recetas disponibles</h2>
-            
-                <div className='flex container mx auto'>
-                    <Posteos recetas={recetas}/>  
-                </div>
-           
-           </div>
+              <Posteos recetas={recetas}/>  
+            </div>
+         
             )
                                                 
 
