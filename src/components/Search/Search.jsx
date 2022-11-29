@@ -50,9 +50,7 @@ const Search = () => {
             
             });
            
-           if(url === "" ){
-            alert("no se encontro nada")
-           }
+          
         } catch (error) {
             console.log(error)
         }
@@ -73,7 +71,15 @@ const Search = () => {
             }
         </div>
             {
-                idSearch === true ? <Link className='mx-10 rounded-full bg-fuchsia-700 text-white uppercase p-3' to={`receta-detail/${url}`}> Ir a la receta</Link> : <div></div>
+                idSearch === true ? (
+                
+                url.map((e, index)=>(
+                    <div key={index}>
+                        <Link className='mx-10 rounded-full bg-fuchsia-700 text-white uppercase p-3' to={`receta-detail/${e.url}`}> Ir a la receta</Link>
+                    </div>
+
+                ))
+                ) : (<div></div>)
             }
      
     </div>

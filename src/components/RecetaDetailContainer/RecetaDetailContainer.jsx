@@ -9,6 +9,7 @@ const RecetaDetailContainer = () => {
 
     const [ item, setItem ] = useState({})
 
+
     useEffect(() => {
         const getColData = async () =>{
           try { 
@@ -18,12 +19,14 @@ const RecetaDetailContainer = () => {
             const res2 = res.find(el=>el.id === id)
             setItem(res2)
             
+            
           } catch (error) {
             console.log(error)
           }
          
         }
         getColData()
+
         return () => {
           
         }

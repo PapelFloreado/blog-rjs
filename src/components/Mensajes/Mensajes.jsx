@@ -1,16 +1,16 @@
 import React, {useEffect} from 'react'
 import Mensaje from "../Mensaje/Mensaje"
 
-const Mensajes = ({mensaje}) => {
+const Mensajes = ({mensajes}) => {
     
+ 
 
-    
   
   return (
     <>
-        <h2 className='font-bold text-fuchsia-700 uppercase text-3xl'>Comentarios</h2>
+        <h2 className='font-bold xl:text-left text-center uppercase text-3xl'>Mensajes</h2>
         {
-            mensaje.map((el,index)=>(
+            mensajes.map((el,index)=>(
                 <Mensaje key={index} mensaje={el.mensaje}/>
             ))
         }

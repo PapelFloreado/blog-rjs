@@ -3,37 +3,34 @@ import Spinner from '../Spinner/Spinner'
 import Clock from '../Clock/Clock'
 import Heart from '../Heart/Heart'
 import db from '../../services'
-import { updateDoc, doc, getDoc } from 'firebase/firestore'
+import { updateDoc, doc} from 'firebase/firestore'
 import redHeart from "../../assets/img/like.svg"
-import MensajeInput from '../MensajeInput/MensajeInput'
-import Mensajes from '../Mensajes/Mensajes'
 import MensajeContainer from '../MensajeContainer/MensajeContainer'
 
 
 
 const RecetaDetail = ({item}) => {
   
-  const { plato, ingredientes, img, description, procedimientos, tiempo, displayName, puntaje, id, mensaje} = item
+  const { plato, ingredientes, img, description, procedimientos, tiempo, displayName, puntaje, id} = item
 
-  console.log(item)
   const [like, setLike] = useState()
   const [heart, setHeart] = useState(false)
-
-  
+ 
 
   useEffect(() => {
     const addLike = ()=>{
       let like = puntaje
       setLike(like)
-
     }
-
+   
+  
     addLike()
     
     return () => {
       
     }
   }, [puntaje])
+
   
 
   const handleLike = async (id)=>{
@@ -67,7 +64,7 @@ const RecetaDetail = ({item}) => {
             <img className='flex justify-center container mx-auto w-2/4 shadow-2xl shadow-slate-700  rounded-3xl' src={img} alt={plato} />
             <div>
               <h3 className='text-center my-16 text-xl'>{description}</h3>
-              <h2 className='text-2xl  font-bold uppercase mx-auto container mt-20 text-center'>Ingredientes</h2>
+              <h2 className='text-3xl  font-bold uppercase mx-auto container mt-20 text-center'>Ingredientes</h2>
               <div className='flex justify-center'>
 
               <table  className="table-auto text-center mt-10">
@@ -102,20 +99,16 @@ const RecetaDetail = ({item}) => {
                   <Clock/>
                 <h3 className='text-2xl'>{tiempo}</h3>
                 </div>
-                <h2 className='uppercase text-3xl font-bold my-10'>Procedimientos</h2>
+                <h2 className='uppercase text-center xl:text-left text-3xl font-bold my-10'>Procedimientos</h2>
                 {
                   procedimientos.map((procedimientos, index)=>(
                     <div className='my-10' key={index}>
-                    <h2 className='font-bold text-2xl text-fuchsia-800'>Paso {index +1}</h2>
-                    <p  className='text-xl'>{procedimientos.procedimientos}</p>
+                    <h2 className='font-bold xl:text-left text-center text-2xl text-fuchsia-800'>Paso {index +1}</h2>
+                    <p  className='xl:text-left text-center text-xl'>{procedimientos.procedimientos}</p>
                     </div>
                   ))
                 }
-                {
-                  mensaje === "" ? (<p>Todavia no hay mensajes</p>) : (<MensajeContainer mensaje={mensaje}></MensajeContainer>)
-                
-                }
-                <MensajeInput></MensajeInput>
+                <MensajeContainer></MensajeContainer> 
                 <div className='flex justify-center text-center my-16'>
                 {
                   heart === true ? (<p className='text-xl mx-auto'>likes<span><img className="w-10 h-10" src={redHeart} alt="heart" /></span>{like}</p>) : (<button onClick={()=>handleLike(id)}>

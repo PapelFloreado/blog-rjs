@@ -1,5 +1,6 @@
 import React from 'react'
 import PosteosContainer from '../components/PosteosContainer/PosteosContainer'
+import Search from "../components/Search/Search"
 
 
 
