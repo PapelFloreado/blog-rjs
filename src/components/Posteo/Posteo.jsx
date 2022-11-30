@@ -6,7 +6,7 @@ const Posteo = ({plato, description, img ,id}) => {
     
     return (
         <>
-            <div className='lg:flex flex lg:justify-center mx-auto w-full lg:w-1/3 container mt-16'>
+            <div className='lg:flex flex justify-center lg:justify-center mx-auto w-full lg:w-1/3 container mt-16'>
                 <div className='mx-4 mt-10'>
                     <img className='rounded-2xl mb-4 shadow-2xl shadow-slate-600  w-[350px] h-[350px]' src={img} alt={description} /> 
                     <h2 className='text-xl text-center font-bold px-10'>{plato}</h2>
