@@ -41,7 +41,8 @@ const FormularioPosteo = () => {
           tags:"",
           img:null,
           displayName,
-          puntaje: 1
+          puntaje: 1,
+          mensaje:""
         
           
         }])
@@ -90,7 +91,7 @@ const FormularioPosteo = () => {
         procedimientos,
         tiempo:"",
         tags:"",
-        img,
+        img:null,
         displayName,
         puntaje: 1
       }])
@@ -115,7 +116,8 @@ const FormularioPosteo = () => {
             tags:tags.value,
             img:result,
             displayName,
-            puntaje: 1   
+            puntaje: 1,
+            mensaje:"" 
                
             })
           setSpinner(false)
@@ -129,7 +131,6 @@ const FormularioPosteo = () => {
 
       const {plato, categoria, description, procedimientos, ingredientes,tiempo, img, tags} = formulario
 
-      debugger
       if( plato,categoria,description,procedimientos,ingredientes,tiempo,tags === undefined || plato,categoria,description,procedimientos,ingredientes,tiempo,tags === "" ){
         return setAlerta({msg: "Todos los campos del formulario son obligatorios"}) 
       }

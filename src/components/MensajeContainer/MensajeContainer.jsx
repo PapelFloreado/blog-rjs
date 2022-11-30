@@ -9,7 +9,6 @@ const MensajeContainer = () => {
   
   const {id} = useParams()
  
-  const [input, setInput] = useState({})
   const [ mensajes, setMensajes] = useState({})
   const [ mensaje, setMensaje ] = useState({
     mensaje:""
@@ -24,8 +23,12 @@ const MensajeContainer = () => {
         const col = await getDocs(data)
         const res = col.docs.map((doc) =>doc={id:doc.id, ...doc.data()})
         const res2 = res.find(el=>el.id === id)
+        if(res2.mensaje.length === 0){
+          return setMensajes(res2)
+        }
         const msg = res2.mensaje
         setMensajes(msg)
+        c
       } catch (error) {
         console.log(error)
       }
@@ -42,36 +45,37 @@ const MensajeContainer = () => {
   
   const handleComentario = async (e,mensaje)=>{
     e.preventDefault()
-    console.log(e.target[0])
     
-    
-    debugger
     if(mensaje.mensaje === ""){
       return alert("vacio")
     }
     
     try {
-      const {formReset} = e.target[0].value
-      console.log(formReset)
-      debugger
+
       const mensajeReceta = doc(db,"recetas",id)
       await updateDoc(mensajeReceta, {mensaje: arrayUnion(mensaje)}).then(alert("agregado"))
       setMensaje(mensajeReceta)
       setMensajeAgregado(mensajeReceta)
       setMensajeAgregado({})
       setMensaje({mensaje:""})
-      document.getElementById("#mensaje").reset()
+      
 
     } catch (error) {
       console.log(error)
     }
 
   }
-    
+   
   return (
     <>
       {
-        mensajes.length === undefined ? (<p>cargando</p>) : (<Mensajes mensajes={mensajes}/>)
+        mensajes.length > 0   ?  (<Mensajes mensajes={mensajes}/>) : 
+        (
+          <div>
+            <h2 className='uppercase font-bold text-3xl'>Todavia no hay mensajes agregados</h2>
+            <p className='uppercase text-2xl mt-10'>Agrega uno</p>
+          </div>
+        )
       }
       <div className='text-center xl:text-left container mx-auto xl:p-72 py-10 flex-col justify-center'>
         <h2 className='uppercase text-fuchsia-700 my-16 font-bold text-3xl'>¿que te pareció esta receta?</h2>

@@ -3,9 +3,6 @@ import Mensaje from "../Mensaje/Mensaje"
 
 const Mensajes = ({mensajes}) => {
     
- 
-
-  
   return (
     <>
         <h2 className='font-bold xl:text-left text-center uppercase text-3xl'>Mensajes</h2>
