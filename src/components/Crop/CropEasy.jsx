@@ -16,7 +16,7 @@ import Spinner from '../Spinner/Spinner.jsx';
 import Check from '../Check/Check.jsx';
 
 
-const CropEasy = ({photoURL, props}) => {
+const CropEasy = ({photoURL}) => {
   
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -33,8 +33,6 @@ const CropEasy = ({photoURL, props}) => {
   };
 
 
-
-
   const cropImage = async () => {
     
     setLoading(true)
@@ -46,8 +44,7 @@ const CropEasy = ({photoURL, props}) => {
       );
       setPhoto(url);
       setFile(file);
-      setOpenCrop(false);
-      console.log(url)
+      setOpenCrop(false);s
       const result = await uploadFile(file)
       const imgUrl = result
       setImg(result)
@@ -141,11 +138,9 @@ const CropEasy = ({photoURL, props}) => {
         ) : 
           
           loading === true ? (<Spinner/>) : (<Check dataSet={img}></Check>)
-
-        
+       
       }
-    
-      
+
     </>
   );
 };

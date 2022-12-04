@@ -40,7 +40,7 @@ const CategoriaContainer = () => {
 
   return (
     <>
-        <h2 className='uppercase text-fuchsia-700 font-bold text-6xl mt-16 text-center'>Aqui están las recetas disponibles</h2>
+        <h2 className='uppercase text-fuchsia-700 font-bold text-3xl lg:text-6xl mt-16 text-center'>Aqui están las recetas <span className='text-black'>disponibles</span> </h2>
       {
 
         recetas.length === 0 ? (<Spinner></Spinner>) : 

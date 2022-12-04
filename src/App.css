@@ -14,6 +14,11 @@ html {
     
 }
 
+nav{
+    margin-top: 0;
+    
+}
+
 
 body {
     min-height: 100vh;

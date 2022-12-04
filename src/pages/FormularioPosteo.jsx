@@ -66,7 +66,7 @@ const FormularioPosteo = () => {
         tiempo:tiempo.value,
         tag:tags.value,
         img,
-        usuario,
+        /* usuario:"", */
         /* displayName, */
         puntaje: 1
       })
@@ -86,7 +86,7 @@ const FormularioPosteo = () => {
         tiempo:tiempo.value,
         tags:tags.value,
         img,
-        usuario,
+        /* usuario:"", */
         /* displayName, */
         puntaje: 1
       })
@@ -109,6 +109,7 @@ const FormularioPosteo = () => {
       const url = document.querySelector("#dataUrl").getAttribute("data-set")
       formulario.img = url
       const usuario = displayName
+      formulario.usuario = usuario
 
       const {plato, categoria, description, procedimientos, ingredientes,tiempo, img} = formulario
 
@@ -125,9 +126,6 @@ const FormularioPosteo = () => {
             puntaje: 1,
             mensaje:"" 
       })
-      console.log(formulario)
-      console.log(displayName)
-      debugger
 
       if( plato,categoria,description,procedimientos,ingredientes,tiempo === undefined || plato,categoria,description,procedimientos,ingredientes,tiempo === "" ){
         return setAlerta({msg: "Todos los campos del formulario son obligatorios"}) 

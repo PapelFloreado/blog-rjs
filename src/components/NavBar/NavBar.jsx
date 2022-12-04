@@ -25,8 +25,8 @@ const NavBar = () => {
 
     return (
         <>
-            <div className='w-full shadow-xl'>
-                <nav className="flex container justify-between items-center h-40 max-w-[1240px] mx-auto px-4  text-fuchsia-700 bg-white">
+            <div className='w-full bg-white sticky top-0 shadow-xl'>
+                <nav className="flex  container justify-between items-center h-40 max-w-[1240px] mx-auto px-4  text-fuchsia-700 bg-white">
                         <Link to="/">
                             <img className='mb-5' src={food} alt="logo" width={40} />
                         </Link>
@@ -55,9 +55,10 @@ const NavBar = () => {
 
                     </ul>
                     <div onClick={handleNav} className='block md:hidden'>
+                        
                         {nav ? <AiOutlineClose size={20}/> : <AiOutlineMenu size={20} />}
                     </div>
-                    <ul className={nav? 'fixed left-0 top-0 w-[60%] h-full border-r border-r-fuchsia-900 bg-white ease-in-out duration-500' : 'ease-in-out duration-500 fixed left-[-100%]'}>
+                    <ul className={nav? 'fixed top-0 left-0 w-[50%] h-full border-r border-r-fuchsia-900 bg-white ease-in-out duration-500' : 'ease-in-out duration-500 fixed left-[-100%]'}>
                         {
                             user?.displayName ? 
                             (<>

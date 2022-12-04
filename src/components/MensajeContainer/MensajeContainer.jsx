@@ -28,7 +28,7 @@ const MensajeContainer = () => {
         }
         const msg = res2.mensaje
         setMensajes(msg)
-        c
+        
       } catch (error) {
         console.log(error)
       }
@@ -77,15 +77,17 @@ const MensajeContainer = () => {
           </div>
         )
       }
-      <div className='text-center xl:text-left container mx-auto xl:p-72 py-10 flex-col justify-center'>
+      <div className='text-center xl:text-left container mx-auto  xl:p-40 py-10 flex-col justify-center'>
         <h2 className='uppercase text-fuchsia-700 my-16 font-bold text-3xl'>¿que te pareció esta receta?</h2>
         <form onSubmit={(e)=>handleComentario(e,mensaje)} className='bg-stone-100 rounded-2xl shadow-2xl shadow-slate-600' action="#">
           <div className='pt-10'>
           <label  className='w-full uppercase text-2xl font-bold px-10' htmlFor="mensaje">Deja tu mensaje</label>
-          <textarea onChange={e=>setMensaje({
-              ...mensaje,    
-          [e.target.name]:e.target.value
-          })} className='w-full px-10 p-6 rounded-2xl shadow-2xl shadow-slate-600 bg-white mt-10' name="mensaje" id="mensaje" maxLength={280} cols="10" rows="10"></textarea>
+          <div className='mx-10'>
+            <textarea onChange={e=>setMensaje({
+                ...mensaje,    
+            [e.target.name]:e.target.value
+            })} className='w-full px-10 p-6 rounded-2xl shadow-2xl shadow-slate-600 bg-white mt-10' name="mensaje" id="mensaje" maxLength={280} cols="10" rows="10"></textarea>
+          </div>
           <input  className=' w-full mt-10 uppercase bg-fuchsia-700 text-center text-white  py-3 px-4 rounded-full hover:bg-fuchsia-800 transition-colors ease-in-out duration-500' type="submit" value="Dejar comentario" />
           </div>
         </form>
