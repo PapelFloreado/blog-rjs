@@ -4,50 +4,43 @@ import Alerta from '../components/Alerta/Alerta'
 import Spinner from '../components/Spinner/Spinner';
 import { UserAuth } from '../context/AuthContext'
 import db from "../services/index.js"
-import { uploadFile } from '../services/index.js';
 import Check from '../components/Check/Check';
 import { useNavigate } from 'react-router-dom';
+import CropEasy from '../components/Crop/CropEasy';
+
 
 const FormularioPosteo = () => {
-
-    const { user } = UserAuth()
-
-    const { displayName } = user
-
-    const navigate = useNavigate()
-
-    const [ spinner, setSpinner] = useState(false)
-
-    const [ check, setCheck ] = useState(false)
-
-    const [file, setFile] = useState(null)
-
-   /*  const [ categoria, setCategoria ] = useState() */
-
-    const [ procedimientos, setProcedimientos ] = useState([{}])
-
-    const [ alerta, setAlerta ] = useState({})
-
-    const [ingredientes, setIngredientes] = useState([{nombre:"",cantidad:"",medida:""}])
     
-    const [ formulario, setFormulario ] = useState([{
+  const [ img, setImg] = useState()
+  const [photoURL, setPhotoURL] = useState(null);
+  const [openCrop, setOpenCrop] = useState(false);
+  const { user } = UserAuth()
+  const {displayName} = user
+    const navigate = useNavigate()    
+    const [ spinner, setSpinner] = useState(false)    
+    const [ check, setCheck ] = useState(false)    
+    const [file, setFile] = useState(null)    
+    const [ procedimientos, setProcedimientos ] = useState([{}])    
+    const [ alerta, setAlerta ] = useState({})
+    const [ imgUrl, setImgUrl] = useState(null)    
+    const [ingredientes, setIngredientes] = useState([{nombre:"",cantidad:"",medida:""}])   
+    const [ formulario, setFormulario ] = useState({
       
-          plato:"",
-          description:"",
-          categoria:"",
-          ingredientes,
-          procedimientos,
-          tiempo:"",
-          tags:"",
-          img:null,
-          displayName,
-          puntaje: 1,
-          mensaje:""
+      plato:"",
+      description:"",
+      categoria:"",
+      ingredientes,
+      procedimientos,
+      tiempo:"",
+      tags:"",
+      img,
+      usuario:"",
+      /* displayName, */
+      puntaje: 1,
+      mensaje:""   
+        })
         
-          
-        }])
-      
-    const handleServiceChange = (e, index) => {
+        const handleServiceChange = (e, index) => {
       const { name, value } = e.target;
       const list = [...ingredientes];
       list[index][name] = value;
@@ -63,50 +56,63 @@ const FormularioPosteo = () => {
 
     const handleAddProcedimiento = ()=>{
       setProcedimientos([...procedimientos,{}])
-      setFormulario([{
+      setFormulario({
       
-        plato:"",
-        description:"",
-        categoria:"",
+        plato:plato.value,
+        description:description.value,
+        categoria:categoria.value,
         ingredientes,
         procedimientos,
-        tiempo:"",
-        tags:"",
-        img:null,
-        displayName,
+        tiempo:tiempo.value,
+        tag:tags.value,
+        img,
+        usuario,
+        /* displayName, */
         puntaje: 1
-      }])
+      })
     }
 
 
     const handleAddIngredient = ()=>{
       
       setIngredientes([...ingredientes, {nombre: "",cantidad: "",medida: ""}])
-      setFormulario([{
+      setFormulario({
       
-        plato:"",
-        description:"",
-        categoria:"",
+        plato:plato.value,
+        description:description.value,
+        categoria:categoria.value,
         ingredientes,
         procedimientos,
-        tiempo:"",
-        tags:"",
-        img:null,
-        displayName,
+        tiempo:tiempo.value,
+        tags:tags.value,
+        img,
+        usuario,
+        /* displayName, */
         puntaje: 1
-      }])
+      })
     }
 
-    const handleUpload = async (e)=>{
-        e.preventDefault()
-        if(file === null ){
-            return  setAlerta({msg: "Recuerda agregar una imagen"})
-        }
-        try {
-          setSpinner(true)
-          const result = await uploadFile(file)
-          setFormulario({
-            
+
+    const handleImg = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        setFile(file);
+        setPhotoURL(URL.createObjectURL(file));
+        setOpenCrop(true);
+        
+      }
+      
+    };
+
+    const handleSubmit = async (formulario)=>{
+
+      const url = document.querySelector("#dataUrl").getAttribute("data-set")
+      formulario.img = url
+      const usuario = displayName
+
+      const {plato, categoria, description, procedimientos, ingredientes,tiempo, img} = formulario
+
+      setFormulario({
             plato:plato.value,
             description:description.value,
             categoria:categoria.value,
@@ -114,32 +120,26 @@ const FormularioPosteo = () => {
             procedimientos,
             tiempo:tiempo.value,
             tags:tags.value,
-            img:result,
-            displayName,
+            img:url,
+            usuario,
             puntaje: 1,
             mensaje:"" 
-               
-            })
-          setSpinner(false)
-          setCheck(true)
-        } catch (error) {
-          console.log(error)
-        }
-    }
+      })
+      console.log(formulario)
+      console.log(displayName)
+      debugger
 
-    const handleSubmit = async (formulario)=>{
-
-      const {plato, categoria, description, procedimientos, ingredientes,tiempo, img, tags} = formulario
-
-      if( plato,categoria,description,procedimientos,ingredientes,tiempo,tags === undefined || plato,categoria,description,procedimientos,ingredientes,tiempo,tags === "" ){
+      if( plato,categoria,description,procedimientos,ingredientes,tiempo === undefined || plato,categoria,description,procedimientos,ingredientes,tiempo === "" ){
         return setAlerta({msg: "Todos los campos del formulario son obligatorios"}) 
       }
       
-      if(img === null || img === undefined){
+      if(img === null || img === undefined || img === ""){
         return setAlerta({msg:"Recuerda subir una imagen"})
       }
       
       try {
+        console.log(formulario)
+        debugger
           const col = collection(db,"recetas")
           await addDoc(col, formulario).then(alert("¡Se ha agregado correctamente tu Receta!"))
           
@@ -150,7 +150,6 @@ const FormularioPosteo = () => {
           }
   
   }
-    
 
     const {msg} = alerta
 
@@ -222,7 +221,6 @@ const FormularioPosteo = () => {
                       <label className='uppercase text-md' htmlFor="procedimientos">Procedimientos de tu receta</label>
 
                         {
-
                           procedimientos.map((paso, index)=>(
                             <div className='my-3' key={index}>
                             <h2>Paso {index +1}</h2>
@@ -231,8 +229,6 @@ const FormularioPosteo = () => {
                           <button onClick={handleAddProcedimiento} className='px-3 text-white rounded-xl py-2 w-full bg-fuchsia-700' type='button'>Agregar paso</button>
                          </div> 
                           ))
-
-
                         }
 
                     </div>
@@ -243,14 +239,19 @@ const FormularioPosteo = () => {
                             [e.target.name] : e.target.value
                       })} name="tiempo" id="tiempo" placeholder='Agrega cuanto tiempo necesitas para esta receta' />  
                   </div> 
-                  <div className='mt-10 mb-10'>
+                  <div className='mt-10 mb-10 '>
+                    
                       <label className='uppercase text-md' htmlFor="img">Agrega una imagen de tu Receta</label>
-                      <div className='flex items-center '>
-                      <input className=''  onChange={e=>setFile(e.target.files[0])} accept="img/jpg" type="file" name="img" id="file" />
-                          <button type='button' className=' items-center w-1/3 bg-fuchsia-700 rounded-xl text-white uppercase mx-3 py-3 px-3 ' onClick={handleUpload}>subir</button>
+                      <div  className='flex items-center '>
+                      
                           <div className=' items-center'>
                               {spinner === true ? <span><Spinner/></span> : check === true && spinner === false ? <span><Check/></span>  : <div></div>}
                           </div>
+
+                          {
+                            openCrop === true ? (<CropEasy photoURL={photoURL}></CropEasy>): (<input className=''  onChange={handleImg} accept="img/jpg" type="file" name="img" id="file" />)
+                          }
+
                       </div>
                   </div>
                   <div className='mt-10 mb-10'>

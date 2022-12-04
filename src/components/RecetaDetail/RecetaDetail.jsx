@@ -11,7 +11,7 @@ import MensajeContainer from '../MensajeContainer/MensajeContainer'
 
 const RecetaDetail = ({item}) => {
   
-  const { plato, ingredientes, img, description, procedimientos, tiempo, displayName, puntaje, id} = item
+  const { plato, ingredientes, img, description, procedimientos, tiempo, usuario, puntaje, id} = item
 
   const [like, setLike] = useState()
   const [heart, setHeart] = useState(false)
@@ -119,7 +119,7 @@ const RecetaDetail = ({item}) => {
                 }
                 </div>
                 
-                <p className='text-center text-lg'>Receta realizada por <span className='uppercase font-bold'>{displayName}</span></p>
+                <p className='text-center text-lg'>Receta realizada por <span className='uppercase font-bold'>{usuario}</span></p>
 
             </div>
             </div>
