@@ -44,7 +44,7 @@ const CropEasy = ({photoURL}) => {
       );
       setPhoto(url);
       setFile(file);
-      setOpenCrop(false);s
+      setOpenCrop(false);
       const result = await uploadFile(file)
       const imgUrl = result
       setImg(result)
