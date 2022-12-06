@@ -90,8 +90,8 @@ const FormularioPosteo = () => {
       }   
     };
 
-    const handleSubmit = async (formulario)=>{
-
+    const handleSubmit = async (formulario,e)=>{
+      
       const url = document.querySelector("#dataUrl").getAttribute("data-set")
       formulario.img = url
       const usuario = displayName
@@ -128,7 +128,7 @@ const FormularioPosteo = () => {
           await addDoc(col, formulario)
           setSuccess(true)
           setSpinner(false)
-          SetAlertaSuccess({mensaje: "Receta cargada con exito"})
+          SetAlertaSuccess({mensajeSuccess: "Receta cargada con exito"})
           setFormulario({
             plato:"",
             description:"",
@@ -142,6 +142,8 @@ const FormularioPosteo = () => {
             puntaje: 1,
             mensaje:""
           })
+          e.target.form.reset()
+
 
           
           } catch (error) {
@@ -151,7 +153,7 @@ const FormularioPosteo = () => {
   }
 
     const {msg} = alerta
-    const {mensaje} = alertaSuccess
+    const {mensajeSuccess} = alertaSuccess
 
       return (
         <>
@@ -165,11 +167,11 @@ const FormularioPosteo = () => {
                       <input className='w-full p-3 rounded-xl mt-5 border' type="text" onChange={e=>setFormulario({
                           ...formulario,
                             [e.target.name] : e.target.value
-                      })} name="plato" id="plato" max={100} placeholder='El nombre de tu receta' />  
+                      })} name="plato" id="plato" maxLength={100} placeholder='El nombre de tu receta' />  
                   </div>  
                   <div className='mt-10'>
                       <label className='uppercase text-md' htmlFor="description">Descripción</label>
-                      <input className='w-full p-3 rounded-xl mt-5 border' type="text" maxLength="140"  onChange={e=>setFormulario({
+                      <input className='w-full p-3 rounded-xl mt-5 border' type="text" maxLength={100}  onChange={e=>setFormulario({
                           ...formulario,
                             [e.target.name] : e.target.value
                       })} name="description" id="description" placeholder='Describe tu receta' />  
@@ -183,7 +185,6 @@ const FormularioPosteo = () => {
                       <option value="">Elige un tipo de receta</option>
                       <option value="postre">postre</option>
                       <option value="pescado">pescado</option>
-                      <option value="desayunos">desayunos</option>
                       <option value="carnes">carnes</option>
                       <option value="legumbres">legumbres</option>
                       <option value="pastas">pastas</option>
@@ -263,11 +264,11 @@ const FormularioPosteo = () => {
                       spinner === true ? (<Spinner></Spinner>) : (<div></div>)
                     }
                   </div>
-                  <input className='w-full hover:bg-fuchsia-800 transition-colors duration-500 cursor-pointer p-3 rounded-full text-center uppercase text-white text-xl bg-fuchsia-700' onClick={()=>handleSubmit(formulario)} type="button" value="Sube tu Receta" />   
+                  <input className='w-full hover:bg-fuchsia-800 transition-colors duration-500 cursor-pointer p-3 rounded-full text-center uppercase text-white text-xl bg-fuchsia-700' onClick={(e)=>handleSubmit(formulario,e)} type="button" value="Sube tu Receta" />   
               </form>
               <div className='flex justify-end relative'>
                   {
-                     mensaje && <SuccessAlert className="ease-in-out transition-all duration-500" alertaSuccess={alertaSuccess}/>
+                     mensajeSuccess && <SuccessAlert className="ease-in-out transition-all duration-500" alertaSuccess={alertaSuccess}/>
                   }
               </div>
                 

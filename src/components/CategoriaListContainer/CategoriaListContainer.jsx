@@ -12,7 +12,7 @@ const CategoriaListContainer = () => {
       
   return (
     <>
-      <h2 className='uppercase md:text-6xl text-fuchsia-700 text-4xl font-bold text-center mt-16'>Elige una categoría</h2>
+      <h2 className='uppercase md:text-6xl text-fuchsia-700 text-4xl font-bold text-center mt-16'>Elige una <span className='text-black'>categoría</span></h2>
       <div className='md:flex justify-center mx-auto container mt-16'>
         <div className='mx-4 mt-10'>
           <img className='rounded-2xl w-full mb-4 shadow-2xl shadow-slate-600' src={vegetariano} alt="vegetariano" />

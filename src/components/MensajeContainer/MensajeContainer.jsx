@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Mensajes from '../Mensajes/Mensajes'
 import { doc, getDocs, collection, updateDoc, arrayUnion } from "firebase/firestore";
 import db from '../../services';
+import SuccessAlert from '../SuccessAlert/SuccessAlert';
 import { useParams } from 'react-router-dom';
 
 
@@ -10,6 +11,7 @@ const MensajeContainer = () => {
   const {id} = useParams()
  
   const [ mensajes, setMensajes] = useState({})
+  const [ alertaSuccess, setAlertaSuccess] = useState({})
   const [ mensaje, setMensaje ] = useState({
     mensaje:""
   })
@@ -41,11 +43,12 @@ const MensajeContainer = () => {
   },[id, mensajeAgregado])
 
   
-  
+  const { mensajeSuccess } = alertaSuccess
   
   const handleComentario = async (e,mensaje)=>{
     e.preventDefault()
-    
+    debugger
+    console.log(e)
     if(mensaje.mensaje === ""){
       return alert("vacio")
     }
@@ -58,6 +61,7 @@ const MensajeContainer = () => {
       setMensajeAgregado(mensajeReceta)
       setMensajeAgregado({})
       setMensaje({mensaje:""})
+      setAlertaSuccess({mensajeSuccess: "Mensaje agregado correctamente"})
       
 
     } catch (error) {
@@ -91,6 +95,9 @@ const MensajeContainer = () => {
           <input  className=' w-full mt-10 uppercase bg-fuchsia-700 text-center text-white  py-3 px-4 rounded-full hover:bg-fuchsia-800 transition-colors ease-in-out duration-500' type="submit" value="Dejar comentario" />
           </div>
         </form>
+        {
+          mensajeSuccess && <SuccessAlert className="ease-in-out transition-all duration-500" alertaSuccess={alertaSuccess}/>
+        }
       </div>
     </>
   )
